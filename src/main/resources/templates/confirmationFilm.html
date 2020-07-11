@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf"
+	layout:decorator="template">
+<head>
+<meta charset="UTF-8">
+<title>Form Cinema</title>
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-5 d-flex justify-content-center">
+			<div class="card" style="width: 25rem;">
+				<div class="card-header text-white" style="background-color: #98AFC3;">Enregistrement effectuer</div>
+				<div class="card-body">
+						<div>
+							<div class="d-flex justify-content-center">
+								<div class="card mb-2 text-white"
+									style="width: 20rem; background-color: #90B3CE">
+									<img style="width: 319px; height: 210px;" class="card-img-top"
+										th:src="@{'/imageFilm/'+${film.id}}" alt="Card image cap">
+									<div class="card-body">
+										<h5 th:text="${film.titre}" class="card-title"></h5>
+										<div class="mb-2">
+											Description:
+											<p th:text="${film.description}" class="card-text d-inline"></p>
+										</div>
+
+										<div class="mb-2">
+											Réalisateur:
+											<p th:text="${film.realisateur}" class="card-text d-inline"></p>
+										</div>
+
+
+										<div class="mb-2">
+											date de sortie:
+											<p th:text="${film.dateSortie}" class="card-text d-inline"></p>
+										</div>
+
+										<div class="mb-2">
+											duree:
+											<p th:text="${film.duree}" class="card-text d-inline"></p>
+										</div>
+
+
+										<div class="mb-2">
+											categorie:
+											<p th:text="${film.categorie.name}" class="card-text d-inline"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

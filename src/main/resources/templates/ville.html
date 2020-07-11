@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf"
+	layout:decorator="template">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-header text-white" style="background-color: #98AFC3;">La liste des villes</div>
+				<div class="card-body">
+					<div class="mb-5">
+						<form th:action=@{ville} method="get" class="form-inline my-2 my-lg-0">
+							<label>Name: </label> <input type="text" name="motCle"
+								th:value="${motCle}" class="form-control mr-sm-2" />
+							<button class="btn btn-outline-info my-2 my-sm-0">Chercher</button>
+						</form>
+					</div>
+					<table class="table table-striped">
+						<tr>
+							<th>ID</th>
+							<th>name</th>
+							<th>altitude</th>
+							<th>latitude</th>
+							<th>longitude</th>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+						<tr th:each="p:${pagevilles.content}">
+							<td th:text="${p.id}"></td>
+							<td th:text="${p.name}"></td>
+							<td th:text="${p.altitude}"></td>
+							<td th:text="${p.latitude}"></td>
+							<td th:text="${p.longitude}"></td>
+							<td><a
+								onclick="javascript:return confirm('Etes vous sur de supprimer??')"
+								class="btn btn-danger"
+								th:href="@{deleteVille(id=${p.id},page=${currentpage},size=${size},motCle=${motCle})}">
+									Delete</a></td>
+							<td><a class="btn btn-success"
+								th:href="@{editVille(id=${p.id})}">Edit</a></td>
+								<td><a class="btn btn-warning"
+								th:href="@{cinema(nomVille=${p.name})}">Liste des cinemas</a></td>
+						</tr>
+					</table>
+					<div th:if="${modeSup=='nonAutorise'}" class="alert alert-danger"
+						role="alert">
+						suppression impossible du ville N
+						<p class="d-inline" th:text="${id_courant}"></p>
+					</div>
+					<div th:if="${modeSup=='Autorise'}" class="alert alert-success"
+						role="alert">
+						suppression du ville N
+						<p class="d-inline" th:text="${id_courant}"></p>
+						est effectué
+
+					</div>
+					<ul class="nav nav-pills">
+						<li th:each="page,status:${pages}"><a
+							th:class="${status.index==currentpage?'btn btn-primary':'btn btn-light'}"
+							th:href="@{ville(page=${status.index},motCle=${motCle})}"
+							th:text="${status.index}+1"></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+
+
+</body>
+</html>

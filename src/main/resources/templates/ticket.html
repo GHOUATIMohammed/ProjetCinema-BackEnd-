@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf"
+	layout:decorator="template">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-header text-white" style="background-color: #98AFC3;">La liste des tickets</div>
+				<div class="card-body">
+					<div class="mb-5">
+						<form th:action=@{ticket} method="get" class="form-inline my-2 my-lg-0">
+							<label>id: </label> <input type="text" name="motCle"
+								th:value="${motCle}"  class="form-control mr-sm-2" />
+							<button class="btn btn-outline-info my-2 my-sm-0">Chercher</button>
+						</form>
+					</div>
+					<div th:if="${modeSup=='Autorise'}" class="alert alert-success"
+						role="alert">
+						suppression du ticket N
+						<p class="d-inline" th:text="${id_courant}"></p>
+						est effectué
+
+					</div>
+					<table class="table table-striped">
+						<tr>
+							<th>ID</th>
+							<th>Code payement</th>
+							<th>nom Client</th>
+							<th>prix</th>
+							<th>reserve</th>
+							<th>place</th>
+							<th>date projection</th>
+							<th>id Projection</th>
+							<th></th>
+							<th></th>
+						</tr>
+						<tr th:each="t:${pagetickets.content}">
+							<td th:text="${t.id}"></td>
+							<td th:text="${t.codePayement}"></td>
+							<td th:text="${t.nomClient}"></td>
+							<td th:text="${t.prix}"></td>
+							<td th:text="${t.reserve}"></td>
+							<td th:text="${t.place.numero}"></td>
+							<td th:text="${t.projection.dateProjection}"></td>
+							<td th:text="${t.projection.id}"></td>
+							<td><a
+								onclick="javascript:return confirm('Etes vous sur de supprimer??')"
+								class="btn btn-danger"
+								th:href="@{deleteTicket(id=${t.id},page=${currentpage},size=${size},motCle=${motCle})}">
+									Delete</a></td>
+							<td><a class="btn btn-success"
+								th:href="@{editTicket(id=${t.id})}">Edit</a></td>
+						</tr>
+					</table>
+					
+					<ul class="nav nav-pills">
+						<li th:each="page,status:${pages}"><a
+							th:class="${status.index==currentpage?'btn btn-primary':'btn btn-light'}"
+							th:href="@{ticket(page=${status.index},motCle=${motCle},idProj=${idProj})}"
+							th:text="${status.index}+1"></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+
+
+</body>
+</html>

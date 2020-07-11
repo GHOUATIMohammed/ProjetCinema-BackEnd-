@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf"
+	layout:decorator="template">
+<head>
+<meta charset="UTF-8">
+<title>Form Cinema</title>
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-header text-white" style="background-color: #98AFC3;">Enregistrement effectuer</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label>ID: </label> <label class="font-weight-bold"
+							th:text="${ticket.id}"></label>
+					</div>
+					<div class="form-group">
+						<label>Code Payement: </label> <label class="font-weight-bold"
+							th:text="${ticket.codePayement}"></label>
+					</div>
+
+					<div class="form-group">
+						<label>nom Client: </label> <label class="font-weight-bold"
+							th:text="${ticket.nomClient}"></label>
+					</div>
+
+					
+
+					<div class="form-group">
+						<label>prix :</label> <label class="font-weight-bold"
+							th:text="${ticket.prix}"></label>
+					</div>
+
+					<div class="form-group">
+						<label>Reseve :</label> <label class="font-weight-bold"
+							th:text="${ticket.reserve}"></label>
+					</div>
+
+					<div class="form-group">
+						<label>Place:</label> <label class="font-weight-bold"
+							th:text="${ticket.place.numero}"></label>
+					</div>
+
+					<div class="form-group">
+						<label>Projection:</label> <label class="font-weight-bold"
+							th:text="${ticket.projection.id}"></label>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

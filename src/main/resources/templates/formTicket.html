@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf"
+	layout:decorator="template">
+<head>
+<meta charset="UTF-8">
+<title>Form Cinema</title>
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-5">
+			<div class="d-flex justify-content-center">
+				<div class="card" style="width: 500px;"> 
+					<div class="card-header text-white" th:if="${mode=='new'}" style="background-color: #98AFC3;">Formulaire de
+						saisie de nouveau ticket</div>
+					<div class="card-header text-white" th:if="${mode=='edit'}" style="background-color: #98AFC3;">Formulaire
+						de mise a jour de ticket</div>
+					<div class="card-body">
+						<form th:action="@{saveTicket}" method="post">
+
+							<div class="form-group">
+								<label class="control-label">ID: </label> <label
+									class="control-label" th:text="${ticket.id}"></label> <input
+									type="hidden" name="id" class="form-control"
+									th:value="${ticket.id}">
+							</div>
+							<div class="form-group">
+								<label class="control-label">Code payement: </label> <label
+									class="control-label" th:text="${ticket.codePayement}"></label> <input
+									type="hidden" name="codePayement" class="form-control"
+									th:value="${ticket.codePayement}">
+							</div>
+							<div class="form-group">
+								<label class="control-label">Nom client: </label> <label
+									class="control-label" th:text="${ticket.nomClient}"></label> <input
+									type="hidden" name="nomClient" class="form-control"
+									th:value="${ticket.nomClient}">
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label">Prix: </label> <input
+									type="text" name="prix" class="form-control"
+									th:value="${ticket.prix}"> <span
+									th:errors=${ticket.prix} class="text-danger"></span>
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label">reserve: </label> <label
+									class="control-label" th:text="${ticket.reserve}"></label> <input
+									type="hidden" name="reserve" class="form-control"
+									th:value="${ticket.reserve}">
+							</div>
+							
+							
+							<div class="form-group">
+								<label class="control-label">Place:</label> 
+								<select name="place" class="form-control">
+									<option th:each="p:${places}" th:text="'Place N '+ ${p.numero}  +'=>' + ${p.salle.name} +'=>' + ${p.salle.cinema.name}+'=>' + ${p.salle.cinema.ville.name}" 
+									class="form-control" th:value="${p.id}"
+									th:selected="${p.id}==${ticket.place.id}" th:if="${mode=='edit'}"></option>
+									
+									<option th:each="p:${places}" th:text="'Place N '+ ${p.numero}  +'=>' + ${p.salle.name} +'=>' + ${p.salle.cinema.name}+'=>' + ${p.salle.cinema.ville.name}"
+									 class="form-control" th:value="${p.id}"
+									 th:if="${mode=='new'}"></option>					
+								</select>
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label">Projection:</label> 
+								<select name="projection" class="form-control">
+									<option th:each="p:${projections}" th:text="'Projection N '+${p.id} +'=>'+ ${p.film.titre}" class="form-control" th:value="${p.id}"
+									th:selected="${p.id}==${ticket.projection.id}" th:if="${mode=='edit'}"></option>
+									
+									<option th:each="p:${projections}" th:text="'Projection N '+${p.id} +'=>'+ ${p.film.titre}" class="form-control" th:value="${p.id}"
+									 th:if="${mode=='new'}"></option>					
+								</select>
+							</div>
+							<button class="bnt btn-success" type="submit">Ajouter</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</body>
+</html>
+
+

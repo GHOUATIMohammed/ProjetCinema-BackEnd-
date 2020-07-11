@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf"
+	layout:decorator="template">
+<head>
+<meta charset="UTF-8">
+<title>Form Cinema</title>
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-header text-white"
+					style="background-color: #98AFC3;">Enregistrement effectuer</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label>ID: </label> <label class="font-weight-bold"
+							th:text="${ville.id}"></label>
+					</div>
+					<div class="form-group">
+						<label>Name :</label> <label class="font-weight-bold"
+							th:text="${ville.name}"></label>
+					</div>
+
+					<div class="form-group">
+						<label>altitude: </label> <label class="font-weight-bold"
+							th:text="${ville.altitude}"></label>
+					</div>
+
+					<div class="form-group">
+						<label>latitude: </label> <label class="font-weight-bold"
+							th:text="${ville.latitude}"></label>
+					</div>
+
+					<div class="form-group">
+						<label>longitude: </label> <label class="font-weight-bold"
+							th:text="${ville.longitude}"></label>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

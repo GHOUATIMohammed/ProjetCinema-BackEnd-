@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf"
+	layout:decorator="template">
+<head>
+<meta charset="UTF-8">
+<title>Form Cinema</title>
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-5">
+			<div class="d-flex justify-content-center">
+				<div class="card bg-light" style="width: 500px">
+					<div class="card-header text-white" th:if="${mode=='new'}"
+						style="background-color: #98AFC3;">Formulaire de saisie de
+						nouveau ville</div>
+					<div class="card-header text-white" th:if="${mode=='edit'}"
+						style="background-color: #98AFC3;">Formulaire de mise a jour
+						de ville</div>
+					<div class="card-body">
+						<form th:action="@{saveVille}" method="post">
+
+							<div class="form-group">
+								<label class="control-label">ID: </label> <label
+									class="control-label" th:text="${ville.id}"></label> <input
+									type="hidden" name="id" class="form-control"
+									th:value="${ville.id}">
+							</div>
+							<div class="form-group">
+								<label class="control-label">name:</label> <input name="name"
+									th:value="${ville.name}" class="form-control"> <span
+									th:errors=${ville.name} class="text-danger"></span>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">altitude: </label> <input
+									type="text" name="altitude" class="form-control"
+									th:value="${ville.altitude}"> <span
+									th:errors=${ville.altitude} class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label class="control-label">latitude: </label> <input
+									type="text" name="latitude" class="form-control"
+									th:value="${ville.latitude}"> <span
+									th:errors=${ville.latitude} class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label class="control-label">longitude: </label> <input
+									name="longitude" class="form-control"
+									th:value="${ville.longitude}"> <span
+									th:errors=${ville.longitude} class="text-danger"></span>
+							</div>
+
+							<button class="bnt btn-success" type="submit">Ajouter</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</body>
+</html>

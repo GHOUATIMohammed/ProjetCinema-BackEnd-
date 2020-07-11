@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf"
+	layout:decorator="template">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-header text-white"
+					style="background-color: #98AFC3;">La liste des films</div>
+				<div class="card-body">
+					<div class="mb-5">
+						<form th:action=@{film} method="get"
+							class="form-inline my-2 my-lg-0">
+							<label>Nom film: </label> <input type="text" name="motCle"
+								th:value="${motCle}" class="form-control mr-sm-2" />
+							<button class="btn btn-outline-info my-2 my-sm-0">Chercher</button>
+						</form>
+					</div>
+
+					<div th:if="${modeSup=='nonAutorise'}" class="alert alert-danger"
+						role="alert">
+						suppression impossible du film N
+						<p class="d-inline" th:text="${id_courant}"></p>
+					</div>
+					<div th:if="${modeSup=='Autorise'}" class="alert alert-success"
+						role="alert">
+						suppression du film N
+						<p class="d-inline" th:text="${id_courant}"></p>
+						est effectué
+
+					</div>
+					<div class="row">
+						<div th:each="f:${pagefilms.content}">
+							<div class="col-md-6">
+								<div class="card mb-2 text-white"
+									style="width: 15rem; background-color: #90B3CE">
+									<img style="width: 238px; height: 210px" class="card-img-top"
+										th:src="@{'/imageFilm/'+${f.id}}" alt="Card image cap">
+									<div class="card-body">
+										<h5 th:text="${f.titre}" class="card-title"></h5>
+										<div class="mb-2">
+											Description:
+											<p th:text="${f.description}" class="card-text d-inline"></p>
+										</div>
+
+										<div class="mb-2">
+											Réalisateur:
+											<p th:text="${f.realisateur}" class="card-text d-inline"></p>
+										</div>
+
+
+										<div class="mb-2">
+											date de sortie:
+											<p th:text="${f.dateSortie}" class="card-text d-inline"></p>
+										</div>
+
+										<div class="mb-2">
+											duree:
+											<p th:text="${f.duree}" class="card-text d-inline"></p>
+										</div>
+
+
+										<div class="mb-2">
+											categorie:
+											<p th:text="${f.categorie.name}" class="card-text d-inline"></p>
+										</div>
+										<div class="ml-4">
+											<a
+												onclick="javascript:return confirm('Etes vous sur de supprimer??')"
+												class="btn btn-danger"
+												th:href="@{deleteFilm(id=${f.id},page=${currentpage},size=${size},motCle=${motCle})}">
+												Delete</a> <a class="btn btn-success"
+												th:href="@{editFilm(id=${f.id})}">Edit</a>
+										</div>
+												 <a
+												class="btn btn-warning mt-1"
+												th:href="@{projection(motCle=${f.titre})}">La liste des
+												Projection</a>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<ul class="nav nav-pills">
+						<li th:each="page,status:${pages}"><a
+							th:class="${status.index==currentpage?'btn btn-primary':'btn btn-light'}"
+							th:href="@{film(page=${status.index},motCle=${motCle})}"
+							th:text="${status.index}+1"></a></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</body>
+</html>
